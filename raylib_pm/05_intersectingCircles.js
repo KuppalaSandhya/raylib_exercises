@@ -1,12 +1,17 @@
 const r = require("raylib")
-const radius1 = 80;
-const radius2 = 50;
-const x1 = 100;
-const y1 = 180;
-const x2 = 350;
-const y2 = 200;
+
 const screenWidth = 800;
 const screenHeight = 400;
+
+const x1 = 100;
+const y1 = 180;
+const radius1 = 80;
+
+const x2 = 350;
+const y2 = 200;
+const radius2 = 50;
+
+
 function distance(x1, y1, x2, y2) {
     return sqrt(sqr((x2 - x1)) + (sqr(y2 - y1)))
 }

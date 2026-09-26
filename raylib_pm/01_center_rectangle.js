@@ -1,19 +1,22 @@
 const r = require("raylib");
-const windowWidth=800;
-const windowHeight=700;
-const breadth=400;
-const length=300;
 
-r.InitWindow(windowWidth, windowHeight, "Raylib");
+const screenWidth = 800;
+const screenHeight = 700;
+
+const rectWidth = 400;
+const rectHeight = 300;
+
+r.InitWindow(screenWidth, screenHeight, "centerRctangle");
 r.SetTargetFPS(60);
-function center(x,y) {
-  return (x-y)/2;
+
+function center(x, y) {
+  return (x - y) / 2;
 }
 while (!r.WindowShouldClose()) {
   r.BeginDrawing();
   r.ClearBackground(r.BLACK);
 
-  r.DrawRectangle(center(windowWidth,breadth),center(windowHeight,length),breadth,length ,r.WHITE);
+  r.DrawRectangle(center(screenWidth, rectWidth), center(screenHeight, rectHeight), rectWidth, rectHeight, r.WHITE);
   r.EndDrawing();
 }
 r.CloseWindow();

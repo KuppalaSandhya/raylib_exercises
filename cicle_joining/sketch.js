@@ -1,20 +1,25 @@
 const r = require("raylib");
-const m = require("./math")
-const x1 = 500;
-const y1 = 400;
-const radius1 = 50;
-const x2 = 300;
-const y2 = 400;
-const radius2 = 50;
-const targetx = 250;
-const targety = 300;
-const targetRadius = 50;
+const m = require("./math");
+
 const screenWidth = 800;
 const screenHeight = 600;
+
+const sourceX = 250;
+const sourceY = 300;
+const sourceRadius = 50;
+
+const x1 = 500;
+const y1 = 400;
+const targetRadius1 = 50;
+
+const x2 = 300;
+const y2 = 400;
+const targetRadius2 = 50;
+
+
 function running() {
     return !r.WindowShouldClose();
 }
-
 
 function setup() {
     r.InitWindow(screenWidth, screenHeight, "circleJoining")
@@ -26,22 +31,24 @@ function update() { }
 
 function draw() {
     r.BeginDrawing();
+
     r.ClearBackground(r.BLACK)
-    r.DrawCircle(targetx, targety, targetRadius, r.WHITE)
-    r.DrawCircle(x1, y1, radius1, r.RED);
-    r.DrawCircle(x2, y2, radius2, r.RED);
+    r.DrawCircle(sourceX, sourceY, sourceRadius, r.WHITE)
+    r.DrawCircle(x1, y1, targetRadius1, r.RED);
+    r.DrawCircle(x2, y2, targetRadius2, r.RED);
 
-    tx1 = m.distance(targetx, targety, x1, y1);
-    tx2 = m.distance(targetx, targety, x2, y2);
+    const distance1 = m.distance(sourceX, sourceY, x1, y1);
+    const distance2 = m.distance(sourceX, sourceY, x2, y2);
 
-    let sourceX = x1;
-    let sourceY = y1;
+    let targetX = x1;
+    let targetY = y1;
 
-    if (tx1 > tx2) {
-        sourceX = x2;
-        sourceY = y2;
+    if (distance1 > distance2) {
+        targetX = x2;
+        targetY = y2;
     }
-    r.DrawLine(targetx, targety, sourceX, sourceY, r.RED);
+    r.DrawLine(sourceX, sourceY, targetX, targetY, r.RED);
+
     r.EndDrawing();
 }
 r

@@ -2,10 +2,10 @@ function calcOffset(outer, inner) {
     return (outer - inner) / 2;
 }
 function sqrt(x) {
-    x ** 0.5;
+    return x ** 0.5;
 }
 function sqr(x) {
-    x * x;
+    return x * x;
 }
 function distance(x1, y1, x2, y2) {
     return sqrt(sqr(x1 - x2) + sqr(y1 - y2))
