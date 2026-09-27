@@ -6,29 +6,33 @@ const screenWidth = 700;
 
 let scanner1X = 0;
 const scanner1Width = 40;
+const start1Point = scanner1X;
+const end1Point = (screenWidth / 2) - scanner1Width;
+const scanner1Speed = 3;
+let scanner1Direction = scanner1Speed;
 
 let scanner2X = screenWidth / 2;
 const scanner2Width = 30;
+const start2Point = scanner2X;
+const end2Point = screenWidth - scanner2Width;
+const scanner2Speed = 7;
+let scanner2Direction = scanner2Speed;
 
-const particle1X = 100;
+const particle1X = 250;
 const particle1Width = 100;
 
 const particle2X = 500;
 const particle2Width = 60;
-
-const scanner1Speed = 10;
-const scanner2Speed = 1;
 
 function running() {
     return !r.WindowShouldClose();
 }
 
 function overLapping(sX, pX, sW, pW) {
-
-    const pR = pX + pW;
     const sR = sX + sW;
+    const pR = pX + pW;
 
-    return ((sX >= pX || sR >= pX) && (sX <= pR || sR <= pR)) ? r.RED : r.WHITE
+    return (sX < pR && sR > pX) ? r.RED : r.WHITE;
 }
 
 function setup() {
@@ -38,8 +42,11 @@ function setup() {
 }
 
 function update() {
-    scanner1X = scanner1X + m.calcOfMoving1(scanner1Speed, screenWidth, scanner1Width, scanner1X);
-    scanner2X = scanner2X + m.calcOfMoving2(scanner2Speed, screenWidth, scanner2Width, scanner2X);
+    scanner1Direction = m.calcDirection(scanner1Speed, scanner1X, start1Point, end1Point, scanner1Direction);
+    scanner1X += scanner1Direction;
+
+    scanner2Direction = m.calcDirection(scanner2Speed, scanner2X, start2Point, end2Point, scanner2Direction);
+    scanner2X += scanner2Direction;
 }
 
 function draw() {
