@@ -79,9 +79,11 @@ function draw() {
     r.EndDrawing();
 }
 
+
 function teardown() {
     r.CloseWindow();
 }
+
 
 module.exports = {
     running,
