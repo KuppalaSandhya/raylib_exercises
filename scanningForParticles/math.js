@@ -14,14 +14,14 @@ function distance(x1, y1, x2, y2) {
     return sqrt(sqr(x1 - x2) + sqr(y1 - y2));
 }
 
-function calcDirection(speed, scannerX, startPoint, endPoint, currentDirection) {
+function calcDirection(speed, scannerX, startPoint, endPoint, scannerDirection) {
     if (scannerX <= startPoint) {
-        return speed;
+        scannerDirection = speed;
     }
     if (scannerX >= endPoint) {
-        return -speed;
+        scannerDirection = -speed;
     }
-    return currentDirection;
+    return scannerDirection;
 }
 
 module.exports = {

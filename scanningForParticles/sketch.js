@@ -47,9 +47,11 @@ function overLapping(sX, pX, sW, pW) {
 }
 
 function setup() {
+    r.SetTraceLogLevel(r.LOG_NONE);
     const FPS = 50;
     r.InitWindow(screenWidth, screenHeight, "scanningForParticles");
     r.SetTargetFPS(FPS);
+
 }
 
 function update() {
@@ -64,21 +66,21 @@ function update() {
 }
 
 function draw() {
-    const horizontalY = 0;
-    const verticleX = 0;
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
-
-    r.DrawRectangle(particle1X, horizontalY, particle1Width, screenHeight, r.BLUE);
-    r.DrawRectangle(particle2X, horizontalY, particle2Width, screenHeight, r.BLUE);
-    r.DrawRectangle(verticleX, particle3Y, screenWidth, particle3Height, r.BLUE)
-
-    r.DrawRectangle(scanner1X, horizontalY, scanner1Width, screenHeight, overLapping(scanner1X, particle1X, scanner1Width, particle1Width));
-    r.DrawRectangle(scanner2X, horizontalY, scanner2Width, screenHeight, overLapping(scanner2X, particle2X, scanner2Width, particle2Width));
-    r.DrawRectangle(verticleX, scanner3Y, screenWidth, scanner3Height, overLapping(scanner3Y, particle3Y, scanner3Height, particle3Height))
+    range();
     r.EndDrawing();
 }
+    function range(){
+    const zero =0;
+    r.DrawRectangle(particle1X, zero, particle1Width, screenHeight, r.BLUE);
+    r.DrawRectangle(particle2X, zero, particle2Width, screenHeight, r.BLUE);
+    r.DrawRectangle(zero, particle3Y, screenWidth, particle3Height, r.BLUE);
 
+    r.DrawRectangle(scanner1X, zero, scanner1Width, screenHeight, overLapping(scanner1X, particle1X, scanner1Width, particle1Width));
+    r.DrawRectangle(scanner2X, zero, scanner2Width, screenHeight, overLapping(scanner2X, particle2X, scanner2Width, particle2Width));
+    r.DrawRectangle(zero, scanner3Y, screenWidth, scanner3Height, overLapping(scanner3Y, particle3Y, scanner3Height, particle3Height))
+}
 
 function teardown() {
     r.CloseWindow();
