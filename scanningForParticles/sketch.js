@@ -41,11 +41,24 @@ function running() {
 
 function overLapping(sX, pX, sW, pW) {
     const sR = sX + sW;
-    const pR = pX + pW;
-
+    const pR = pX + pW;    
     return (sX < pR && sR > pX) ? r.RED : r.WHITE;
 }
 
+function updateScanner3() {
+    scanner3Direction = m.calcDirection(scanner3Speed, scanner3Y, start3Point, end3Point, scanner3Direction);
+    scanner3Y += scanner3Direction;
+}
+
+function updateScanner2() {
+    scanner2Direction = m.calcDirection(scanner2Speed, scanner2X, start2Point, end2Point, scanner2Direction);
+    scanner2X += scanner2Direction;
+}
+
+function updateScanner1() {
+    scanner1Direction = m.calcDirection(scanner1Speed, scanner1X, start1Point, end1Point, scanner1Direction);
+    scanner1X += scanner1Direction;
+}
 function setup() {
     r.SetTraceLogLevel(r.LOG_NONE);
     const FPS = 50;
@@ -55,15 +68,11 @@ function setup() {
 }
 
 function update() {
-    scanner1Direction = m.calcDirection(scanner1Speed, scanner1X, start1Point, end1Point, scanner1Direction);
-    scanner1X += scanner1Direction;
-
-    scanner2Direction = m.calcDirection(scanner2Speed, scanner2X, start2Point, end2Point, scanner2Direction);
-    scanner2X += scanner2Direction;
-
-    scanner3Direction = m.calcDirection(scanner3Speed, scanner3Y, start3Point, end3Point, scanner3Direction);
-    scanner3Y += scanner3Direction;
+    updateScanner1();
+    updateScanner2();
+    updateScanner3();
 }
+
 
 function draw() {
     r.BeginDrawing();
