@@ -8,22 +8,21 @@ let scanner1X = 0;
 const scanner1Width = 40;
 const start1Point = scanner1X;
 const end1Point = (screenWidth / 2) - scanner1Width;
-const scanner1Speed = 3;
-let scanner1Direction = scanner1Speed;
+let scanner1Speed = 3;
 
 let scanner2X = screenWidth / 2;
 const scanner2Width = 30;
 const start2Point = scanner2X;
 const end2Point = screenWidth - scanner2Width;
-const scanner2Speed = 7;
-let scanner2Direction = scanner2Speed;
+let scanner2Speed = 7;
+
 
 let scanner3Y = 0;
 const scanner3Height = 20;
 const start3Point = scanner3Y;
 const end3Point = screenHeight - scanner3Height;
-const scanner3Speed = 4;
-let scanner3Direction = scanner3Speed;
+let scanner3Speed = 4;
+
 
 const particle1X = 250;
 const particle1Width = 100;
@@ -46,18 +45,18 @@ function overLapping(sX, pX, sW, pW) {
 }
 
 function updateScanner3() {
-    scanner3Direction = m.calcDirection(scanner3Speed, scanner3Y, start3Point, end3Point, scanner3Direction);
-    scanner3Y += scanner3Direction;
+    currentSpeed = m.calcDirection(scanner3Speed, scanner3Y, start3Point, end3Point);
+    scanner3Y += currentSpeed;
 }
 
 function updateScanner2() {
-    scanner2Direction = m.calcDirection(scanner2Speed, scanner2X, start2Point, end2Point, scanner2Direction);
-    scanner2X += scanner2Direction;
+    current2speed = m.calcDirection(scanner2Speed, scanner2X, start2Point, end2Point);
+    scanner2X += currentSpeed;
 }
 
 function updateScanner1() {
-    scanner1Direction = m.calcDirection(scanner1Speed, scanner1X, start1Point, end1Point, scanner1Direction);
-    scanner1X += scanner1Direction;
+    currentspeed = m.calcDirection(scanner1Speed, scanner1X, start1Point, end1Point);
+    scanner1X += currentSpeed;
 }
 function setup() {
     r.SetTraceLogLevel(r.LOG_NONE);
