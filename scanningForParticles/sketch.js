@@ -6,21 +6,21 @@ const screenWidth = 700;
 
 let scanner1X = 0;
 const scanner1Width = 40;
-const start1Point = scanner1X;
-const end1Point = (screenWidth / 2) - scanner1Width;
+const scanner1Start = scanner1X;
+const scanner1End = (screenWidth / 2) - scanner1Width;
 let scanner1Speed = 3;
 
 let scanner2X = screenWidth / 2;
 const scanner2Width = 30;
-const start2Point = scanner2X;
-const end2Point = screenWidth - scanner2Width;
+const scanner2Start = scanner2X;
+const scanner2End = screenWidth - scanner2Width;
 let scanner2Speed = 7;
 
 
 let scanner3Y = 0;
 const scanner3Height = 20;
-const start3Point = scanner3Y;
-const end3Point = screenHeight - scanner3Height;
+const scanner3Start = scanner3Y;
+const scanner3End = screenHeight - scanner3Height;
 let scanner3Speed = 4;
 
 
@@ -45,17 +45,17 @@ function overLapping(sX, pX, sW, pW) {
 }
 
 function updateScanner3() {
-    currentSpeed = m.calcDirection(scanner3Speed, scanner3Y, start3Point, end3Point);
+    currentSpeed = m.calcSpeed(scanner3Speed, scanner3Y, scanner3Start, scanner3End);
     scanner3Y += currentSpeed;
 }
 
 function updateScanner2() {
-    current2speed = m.calcDirection(scanner2Speed, scanner2X, start2Point, end2Point);
+    current2speed = m.calcSpeed(scanner2Speed, scanner2X, scanner2Start, scanner2End);
     scanner2X += currentSpeed;
 }
 
 function updateScanner1() {
-    currentspeed = m.calcDirection(scanner1Speed, scanner1X, start1Point, end1Point);
+    currentspeed = m.calcSpeed(scanner1Speed, scanner1X, scanner1Start, scanner1End);
     scanner1X += currentSpeed;
 }
 function setup() {
