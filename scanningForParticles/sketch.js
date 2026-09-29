@@ -1,67 +1,38 @@
 const r = require("raylib");
 const m = require("./math");
-
-const screenHeight = 400;
-const screenWidth = 700;
-
-let scanner1X = 0;
-const scanner1Width = 40;
-const scanner1Start = scanner1X;
-const scanner1End = (screenWidth / 2) - scanner1Width;
-let scanner1Speed = 3;
-
-let scanner2X = screenWidth / 2;
-const scanner2Width = 30;
-const scanner2Start = scanner2X;
-const scanner2End = screenWidth - scanner2Width;
-let scanner2Speed = 7;
-
-
-let scanner3Y = 0;
-const scanner3Height = 20;
-const scanner3Start = scanner3Y;
-const scanner3End = screenHeight - scanner3Height;
-let scanner3Speed = 4;
-
-
-const particle1X = 250;
-const particle1Width = 100;
-
-const particle2Width = 60;
-const particle2X = 500;
-
-const particle3Height = 40;
-const particle3Y = 150;
-
+const w = require("./window");
+const s1 = require("./scanner1");
+const s2 = require("./scanner2");
+const s3 = require("./scanner3");
+const p1 = require("./particle1");
+const p2 = require("./particle2");
+const p3 = require("./particle3");
+const s = require ("./scannersFunctions");
 
 function running() {
     return !r.WindowShouldClose();
 }
 
-function overLapping(sX, pX, sW, pW) {
-    const sR = sX + sW;
-    const pR = pX + pW;    
-    return (sX < pR && sR > pX) ? r.RED : r.WHITE;
-}
-
 function updateScanner3() {
-    currentSpeed = m.calcSpeed(scanner3Speed, scanner3Y, scanner3Start, scanner3End);
-    scanner3Y += currentSpeed;
+  s3.scannerSpeed = s.toCalcSpeed(s3.scannerSpeed,s3.lowerRange,s3.upperRange,s3.scannerY);
+  s3.scannerY = s.toMoveScanners(s3.scannerY,s3.scannerSpeed);
+  color3 = s.changeColor(s3.scannerY, p3.particleY, s3.scannerHeight, p3.particleHeight)
 }
-
 function updateScanner2() {
-    current2speed = m.calcSpeed(scanner2Speed, scanner2X, scanner2Start, scanner2End);
-    scanner2X += currentSpeed;
+  s2.scannerSpeed = s.toCalcSpeed(s2.scannerSpeed,s2.lowerRange,s2.upperRange,s2.scannerX);
+  s2.scannerX = s.toMoveScanners(s2.scannerX,s2.scannerSpeed);
+  color2 = s.changeColor(s2.scannerX, p2.particleX, s2.scannerWidth, p2.particleWidth)
 }
 
 function updateScanner1() {
-    currentspeed = m.calcSpeed(scanner1Speed, scanner1X, scanner1Start, scanner1End);
-    scanner1X += currentSpeed;
+  s1.scannerSpeed = s.toCalcSpeed(s1.scannerSpeed,s1.lowerRange,s1.upperRange,s1.scannerX);
+  s1.scannerX = s.toMoveScanners(s1.scannerX,s1.scannerSpeed);
+  color1 = s.changeColor(s1.scannerX, p1.particleX, s1.scannerWidth, p1.particleWidth)
 }
 function setup() {
     r.SetTraceLogLevel(r.LOG_NONE);
     const FPS = 50;
-    r.InitWindow(screenWidth, screenHeight, "scanningForParticles");
+    r.InitWindow(w.screenWidth, w.screenHeight, "scanningForParticles");
     r.SetTargetFPS(FPS);
 
 }
@@ -81,13 +52,13 @@ function draw() {
 }
     function range(){
     const zero =0;
-    r.DrawRectangle(particle1X, zero, particle1Width, screenHeight, r.BLUE);
-    r.DrawRectangle(particle2X, zero, particle2Width, screenHeight, r.BLUE);
-    r.DrawRectangle(zero, particle3Y, screenWidth, particle3Height, r.BLUE);
+    r.DrawRectangle(p1.particleX, zero, p1.particleWidth, w.screenHeight, r.BLUE);
+    r.DrawRectangle(p2.particleX, zero, p2.particleWidth, w.screenHeight, r.BLUE);
+    r.DrawRectangle(zero, p3.particleY, w.screenWidth, p3.particleHeight, r.BLUE);
 
-    r.DrawRectangle(scanner1X, zero, scanner1Width, screenHeight, overLapping(scanner1X, particle1X, scanner1Width, particle1Width));
-    r.DrawRectangle(scanner2X, zero, scanner2Width, screenHeight, overLapping(scanner2X, particle2X, scanner2Width, particle2Width));
-    r.DrawRectangle(zero, scanner3Y, screenWidth, scanner3Height, overLapping(scanner3Y, particle3Y, scanner3Height, particle3Height))
+    r.DrawRectangle(s1.scannerX, zero, s1.scannerWidth, w.screenHeight, color1);
+    r.DrawRectangle(s2.scannerX, zero, s2.scannerWidth, w.screenHeight, color2);
+    r.DrawRectangle(zero, s3.scannerY, w.screenWidth, s3.scannerHeight, color3)
 }
 
 function teardown() {
