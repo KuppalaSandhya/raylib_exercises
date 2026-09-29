@@ -1,10 +1,10 @@
 const r = require("raylib")
-function isDetectingParticle(lowerRange,uppperRange,scannerCord)
+function scannerTouchesBoundaries(lowerRange,uppperRange,scannerCord)
 {
     return (scannerCord < lowerRange || scannerCord > uppperRange);
 }
 function toCalcSpeed(velocity,lowerRange,upperRange,scannerCord){
-  return  isDetectingParticle(lowerRange,upperRange,scannerCord) ?  -velocity : velocity;
+  return scannerTouchesBoundaries(lowerRange,upperRange,scannerCord) ?  -velocity : velocity;
 }
 function toMoveScanners(scannerStart,scannerSpeed){
     return scannerStart + scannerSpeed ;

@@ -3,7 +3,7 @@ let scannerX = 0;
 const scannerWidth = 40;
 const lowerRange = 0;
 const upperRange = (w.screenWidth / 2) - scannerWidth;
-let  scannerSpeed = 1;
+let  scannerSpeed = 5;
 
 module.exports =  {
     scannerX ,
