@@ -7,27 +7,27 @@ const s3 = require("./scanner3");
 const p1 = require("./particle1");
 const p2 = require("./particle2");
 const p3 = require("./particle3");
-const s = require ("./scannersFunctions");
+const s = require ("./scanners");
 
 function running() {
     return !r.WindowShouldClose();
 }
 
 function updateScanner3() {
-  s3.scannerSpeed = s.toCalcSpeed(s3.scannerSpeed,s3.lowerRange,s3.upperRange,s3.scannerY);
-  s3.scannerY = s.toMoveScanners(s3.scannerY,s3.scannerSpeed);
-  color3 = s.changeColor(s3.scannerY, p3.particleY, s3.scannerHeight, p3.particleHeight)
+  s3.scannerSpeed = s.CalcSpeed(s3.scannerSpeed,s3.lowerRange,s3.upperRange,s3.scannerY);
+  s3.scannerY = s.MoveScanners(s3.scannerY,s3.scannerSpeed);
+  color3 = s.overLappingOfScannerParticles(s3.scannerY, p3.particleY, s3.scannerHeight, p3.particleHeight)
 }
 function updateScanner2() {
-  s2.scannerSpeed = s.toCalcSpeed(s2.scannerSpeed,s2.lowerRange,s2.upperRange,s2.scannerX);
-  s2.scannerX = s.toMoveScanners(s2.scannerX,s2.scannerSpeed);
-  color2 = s.changeColor(s2.scannerX, p2.particleX, s2.scannerWidth, p2.particleWidth)
+  s2.scannerSpeed = s.CalcSpeed(s2.scannerSpeed,s2.lowerRange,s2.upperRange,s2.scannerX);
+  s2.scannerX = s.MoveScanners(s2.scannerX,s2.scannerSpeed);
+  color2 = s.overLappingOfScannerParticles(s2.scannerX, p2.particleX, s2.scannerWidth, p2.particleWidth)
 }
 
 function updateScanner1() {
-  s1.scannerSpeed = s.toCalcSpeed(s1.scannerSpeed,s1.lowerRange,s1.upperRange,s1.scannerX);
-  s1.scannerX = s.toMoveScanners(s1.scannerX,s1.scannerSpeed);
-  color1 = s.changeColor(s1.scannerX, p1.particleX, s1.scannerWidth, p1.particleWidth)
+  s1.scannerSpeed = s.CalcSpeed(s1.scannerSpeed,s1.lowerRange,s1.upperRange,s1.scannerX);
+  s1.scannerX = s.MoveScanners(s1.scannerX,s1.scannerSpeed);
+  color1 = s.overLappingOfScannerParticles(s1.scannerX, p1.particleX, s1.scannerWidth, p1.particleWidth)
 }
 function setup() {
     r.SetTraceLogLevel(r.LOG_NONE);
