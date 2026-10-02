@@ -1,40 +1,32 @@
 const r = require("raylib");
-const w = require("./window");
-const s = require("./scanners");
-const p = require("./particles");
-
-
+const o = require("./object")
 function running() {
     return !r.WindowShouldClose();
 }
 
-function setup() {
+function setup() { 
     r.SetTraceLogLevel(r.LOG_NONE);
     const FPS = 50;
-    r.InitWindow(w.screenWidth, w.screenHeight, "scanningForParticles");
+    r.InitWindow(400,600, "scanningForParticles");
     r.SetTargetFPS(FPS);
 
 }
 
-function update() {
-     s.updateScanner1()
-     s.updateScanner2()
-     s.updateScanner3()
+function update() { 
+    
 }
 
-
-function draw() {
+function draw() { 
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
-    p.drawParticles();
-    s.drawScanners();
+    r.DrawRectangleRec(o.windowRect, r.RED);
+    r.DrawRectangleLines(o.windowRect.x, o.windowRect.y, o.windowRect.width, o.windowRect.height, r.WHITE);
     r.EndDrawing();
 }
 
 function teardown() {
     r.CloseWindow();
 }
-
 
 module.exports = {
     running,
