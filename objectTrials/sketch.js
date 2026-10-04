@@ -82,8 +82,11 @@ function range(){
     // r.DrawCircleV(circlePosition, 50, r.WHITE);
     
 
-   r.DrawCircle(ball.position.x, ball.position.y, ball.size.radius, ball.color);
-   r.DrawCircleV(ball.position, ball.size.radius, ball.color);
+//    r.DrawCircle(ball.position.x, ball.position.y, ball.size.radius, ball.color);
+//    r.DrawCircleV(ball.position, ball.size.radius, ball.color);
+
+
+    r.DrawCircleSector(ball.position,50,90,270,0,r.RED);
 
 }
 
