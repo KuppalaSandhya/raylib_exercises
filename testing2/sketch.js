@@ -6,8 +6,8 @@ function running() {
 
 function setup() {
      r.SetTraceLogLevel(r.LOG_NONE);
-    r.InitWindow();
-    r.SetTargetFPS(FPS);
+    r.InitWindow(200,200,"testing");
+    r.SetTargetFPS(60);
 }
 
 function update() { }
@@ -15,6 +15,7 @@ function update() { }
 function draw() { 
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
+    r.DrawRectangle(50,50,100,100,r.RED);
     r.EndDrawing();
 }
 
