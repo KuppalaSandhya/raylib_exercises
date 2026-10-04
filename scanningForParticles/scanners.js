@@ -20,15 +20,22 @@ const scanner3 = {
     speed: 1,
 };
 
-scanner1.lowerRange = scanner1.x;
-scanner1.upperRange = (w.screenWidth / 2) - scanner1.width;
+const Ranges = {
+    scanner1 : {
+        lowerRange : scanner1.x ,
+        upperRange : (w.screenWidth / 2) - scanner1.width,
+    },
 
-scanner2.lowerRange = w.screenWidth / 2,
-scanner2.upperRange = w.screenWidth - scanner2.width
+    scanner2 : {
+       lowerRange : w.screenWidth / 2,
+       upperRange : w.screenWidth - scanner2.width,
+    },
 
-scanner3.lowerRange = scanner3.y;
-scanner3.upperRange = w.screenHeight - scanner3.height;
-
+    scanner3 : {
+        lowerRange : scanner3.y,
+        upperRange : w.screenHeight - scanner3.height,
+    }
+};
 
 function isScannerDetectedParticle(sC, pC, sR, pR) {
     return (sC < pR && sR > pC)
@@ -57,20 +64,20 @@ function CalcSpeed(velocity, lowerRange, upperRange, scannerCord) {
 }
 
 function updateScanner1() {
-    scanner1.speed = CalcSpeed(scanner1.speed, scanner1.lowerRange, scanner1.upperRange, scanner1.x);
+    scanner1.speed = CalcSpeed(scanner1.speed, Ranges.scanner1.lowerRange, Ranges.scanner1.upperRange, scanner1.x);
     scanner1.x = MoveScanners(scanner1.x, scanner1.speed);
     scanner1.color = overLappingOfScannerParticles(scanner1.x, p.particle1.x, scanner1.width, p.particle1.width);
 }
 
 
 function updateScanner2() {
-    scanner2.speed = CalcSpeed(scanner2.speed, scanner2.lowerRange, scanner2.upperRange, scanner2.x);
+    scanner2.speed = CalcSpeed(scanner2.speed, Ranges.scanner2.lowerRange, Ranges.scanner2.upperRange, scanner2.x);
     scanner2.x = MoveScanners(scanner2.x, scanner2.speed);
     scanner2.color = (overLappingOfScannerParticles(scanner2.x, p.particle2.x, scanner2.width, p.particle2.width));
 }
 
 function updateScanner3() {
-    scanner3.speed = CalcSpeed(scanner3.speed, scanner3.lowerRange, scanner3.upperRange, scanner3.y);
+    scanner3.speed = CalcSpeed(scanner3.speed, Ranges.scanner3.lowerRange, Ranges.scanner3.upperRange, scanner3.y);
     scanner3.y = MoveScanners(scanner3.y, scanner3.speed);
     scanner3.color = (overLappingOfScannerParticles(scanner3.y, p.particle3.y, scanner3.height, p.particle3.height));
 }
