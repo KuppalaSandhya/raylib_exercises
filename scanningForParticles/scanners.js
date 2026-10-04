@@ -1,41 +1,15 @@
 const r = require("raylib");
-const p = require("./particles");
-const w = require("./window");
 
-const scanner1 = {
-    x: 0,
-    width: 40,
-    speed: 5,
-};
-
-const scanner2 = {
-    x: w.screenWidth / 2,
-    width: 30,
-    speed: 1,
-};
-
-const scanner3 = {
-    y: 0,
-    height: 30,
-    speed: 1,
-};
-
-const Ranges = {
-    scanner1 : {
-        lowerRange : scanner1.x ,
-        upperRange : (w.screenWidth / 2) - scanner1.width,
-    },
-
-    scanner2 : {
-       lowerRange : w.screenWidth / 2,
-       upperRange : w.screenWidth - scanner2.width,
-    },
-
-    scanner3 : {
-        lowerRange : scanner3.y,
-        upperRange : w.screenHeight - scanner3.height,
+function createScanner(p, s, v, l, u) {
+     return{   
+        position: p,
+        size : s,
+        speed : v,
+        lowerRange : l,
+        upperRange : u,
+     };
     }
-};
+
 
 function isScannerDetectedParticle(sC, pC, sR, pR) {
     return (sC < pR && sR > pC)
@@ -51,35 +25,35 @@ function overLappingOfScannerParticles(scannerCord, particleCord, sW, pW) {
     return changeColor(scannerCord, particleCord, scannerRange, particleRange)
 }
 
-function MoveScanners(scannerStart, scannerSpeed) {
-    return scannerStart + scannerSpeed;
+function MoveScanners(scannerPosition, scannerSpeed) {
+    return scannerPosition + scannerSpeed;
 }
 
-function isScannerTouchingBoundaries(lowerRange, uppperRange, scannerCord) {
-    return (scannerCord < lowerRange || scannerCord > uppperRange);
+function isScannerTouchingBoundaries(lowerRange, uppperRange, scannerCord, scannerSize) {
+    return (scannerCord < lowerRange || scannerCord > (uppperRange - scannerSize));
 }
 
-function CalcSpeed(velocity, lowerRange, upperRange, scannerCord) {
-    return isScannerTouchingBoundaries(lowerRange, upperRange, scannerCord) ? -velocity : velocity;
+function CalcSpeed(speed, lowerRange, upperRange, scannerCord,scannerSize) {
+    return isScannerTouchingBoundaries(lowerRange, upperRange, scannerCord,scannerSize) ? -speed : speed;
 }
 
-function updateScanner1() {
-    scanner1.speed = CalcSpeed(scanner1.speed, Ranges.scanner1.lowerRange, Ranges.scanner1.upperRange, scanner1.x);
-    scanner1.x = MoveScanners(scanner1.x, scanner1.speed);
-    scanner1.color = overLappingOfScannerParticles(scanner1.x, p.particle1.x, scanner1.width, p.particle1.width);
+function updateScanner1(world) {
+    world.scanner1.speed = CalcSpeed(world.scanner1.speed, world.scanner1.lowerRange, world.scanner1.upperRange, world.scanner1.position,world.scanner1.size);
+    world.scanner1.position = MoveScanners(world.scanner1.position, world.scanner1.speed);
+    world.scanner1.color = overLappingOfScannerParticles(world.scanner1.position, world.particle1.position, world.scanner1.size, world.particle1.size);
 }
 
 
-function updateScanner2() {
-    scanner2.speed = CalcSpeed(scanner2.speed, Ranges.scanner2.lowerRange, Ranges.scanner2.upperRange, scanner2.x);
-    scanner2.x = MoveScanners(scanner2.x, scanner2.speed);
-    scanner2.color = (overLappingOfScannerParticles(scanner2.x, p.particle2.x, scanner2.width, p.particle2.width));
+function updateScanner2(world) {
+    world.scanner2.speed = CalcSpeed(world.scanner2.speed, world.scanner2.lowerRange,world.scanner2.upperRange, world.scanner2.position, world.scanner2.size);
+    world.scanner2.position = MoveScanners(world.scanner2.position, world.scanner2.speed);
+    world.scanner2.color = overLappingOfScannerParticles(world.scanner2.position, world.particle2.position,  world.scanner2.size,  world.particle2.size);
 }
 
-function updateScanner3() {
-    scanner3.speed = CalcSpeed(scanner3.speed, Ranges.scanner3.lowerRange, Ranges.scanner3.upperRange, scanner3.y);
-    scanner3.y = MoveScanners(scanner3.y, scanner3.speed);
-    scanner3.color = (overLappingOfScannerParticles(scanner3.y, p.particle3.y, scanner3.height, p.particle3.height));
+function updateScanner3(world) {
+     world.scanner3.speed = CalcSpeed( world.scanner3.speed,  world.scanner3.lowerRange, world.scanner3.upperRange, world.scanner3.position, world.scanner3.size);
+     world.scanner3.position = MoveScanners( world.scanner3.position,  world.scanner3.speed);
+     world.scanner3.color = overLappingOfScannerParticles( world.scanner3.position,  world.particle3.position,  world.scanner3.size,  world.particle3.size);
 }
 
 
@@ -87,18 +61,17 @@ function drawRectangle(x, y, width, height, color) {
     r.DrawRectangle(x, y, width, height, color);
 }
 
-function drawScanners() {
+function drawScanners(world) {
+  
     const zero = 0;
-    drawRectangle(scanner1.x, zero, scanner1.width, w.screenHeight, scanner1.color);
-    drawRectangle(scanner2.x, zero, scanner2.width, w.screenHeight, scanner2.color);
-    drawRectangle(zero, scanner3.y, w.screenWidth, scanner3.height, scanner3.color);
+    drawRectangle(world.scanner1.position, zero, world.scanner1.size, world.screen.height, world.scanner1.color);
+    drawRectangle(world.scanner2.position, zero, world.scanner2.size, world.screen.height, world.scanner2.color);
+    drawRectangle(zero, world.scanner3.position,  world.screen.width, world.scanner3.size, world.scanner3.color);
     
 }
 
 module.exports = {
-    scanner1,
-    scanner2,
-    scanner3,
+    createScanner,
     updateScanner1,
     updateScanner2,
     updateScanner3,

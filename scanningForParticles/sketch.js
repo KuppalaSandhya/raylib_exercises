@@ -1,5 +1,4 @@
 const r = require("raylib");
-const w = require("./window");
 const s = require("./scanners");
 const p = require("./particles");
 
@@ -9,25 +8,45 @@ function running() {
 }
 
 function setup() {
-    r.SetTraceLogLevel(r.LOG_NONE);
+
     const FPS = 50;
-    r.InitWindow(w.screenWidth, w.screenHeight, "scanningForParticles");
+    const world = {};
+     
+    world.screen = {
+        width : 700,
+        height : 400,
+    };
+
+    world.scanner1 = s.createScanner(0, 40, 5, 0, 350);
+    world.scanner2 = s.createScanner(350, 30, 3, 350, 700);
+    world.scanner3 = s.createScanner(0, 30, 20, 0, 400);
+    
+    world.particle1 = p.createParticle(250, 100);
+    world.particle2 = p.createParticle(500, 60);
+    world.particle3 = p.createParticle(40, 80);
+
+    r.SetTraceLogLevel(r.LOG_NONE);
+    r.InitWindow(world.screen.width, world.screen.height, "scanningForParticles");
     r.SetTargetFPS(FPS);
 
+    return world;
 }
 
-function update() {
-     s.updateScanner1()
-     s.updateScanner2()
-     s.updateScanner3()
+ function update(world) {
+    s.updateScanner1(world)
+    s.updateScanner2(world)
+    s.updateScanner3(world)
+
+
+
 }
 
 
-function draw() {
+function draw(world) {
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
-    p.drawParticles();
-    s.drawScanners();
+    p.drawParticles(world);
+    s.drawScanners(world);
     r.EndDrawing();
 }
 

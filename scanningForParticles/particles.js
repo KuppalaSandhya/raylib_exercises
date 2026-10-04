@@ -1,32 +1,25 @@
- const w = require("./window");
- const r = require("raylib");
+const r = require("raylib");
 
- const particle1 = { 
-    x : 250,
-    width : 100,
- };
-const particle2 = {
-     x : 500,
-     width : 60,
-};
-const particle3 = {
-    height : 40,
-    y : 150,
-};
-function drawParticles(){
-    const zero =0;
-    drawRectangle(particle1.x, zero, particle1.width, w.screenHeight, r.BLUE);
-    drawRectangle(particle2.x, zero, particle2.width, w.screenHeight, r.BLUE);
-    drawRectangle(zero, particle3.y, w.screenWidth, particle3.height, r.BLUE);
+ function createParticle(pP,pS){
+    return  {
+        position : pP,
+        size : pS,
+    };
 }
+
+function drawParticles(world){
+    const zero =0;
+    drawRectangle(world.particle1.position, zero, world.particle1.size, world.screen.height, r.BLUE);
+    drawRectangle(world.particle2.position, zero, world.particle2.size, world.screen.height, r.BLUE);
+    drawRectangle(zero, world.particle3.position, world.screen.width, world.particle3.size, r.BLUE);
+
+} 
 function drawRectangle(x,y,width,height,color){
     r.DrawRectangle(x,y,width,height,color);
 }
 
 
 module.exports = {
-    particle1,
-    particle2,
-    particle3,
+   createParticle,
     drawParticles,
 };
